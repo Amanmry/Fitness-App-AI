@@ -3,6 +3,7 @@ package com.fitness.activityservice.controller;
 import com.fitness.activityservice.dto.ActivityRequest;
 import com.fitness.activityservice.dto.ActivityResponse;
 import com.fitness.activityservice.service.ActivityService;
+import jakarta.websocket.server.PathParam;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,5 +25,10 @@ public class ActivityController {
     @GetMapping
     public ResponseEntity<List<ActivityResponse>> getUserActivities(@RequestHeader("X-User-ID") String userId) {
         return ResponseEntity.ok(activityService.getUserActivities(userId));
+    }
+
+    @GetMapping("/{activityId}")
+    public ResponseEntity<ActivityResponse> getUserActivity(@PathVariable String activityId) {
+        return ResponseEntity.ok(activityService.getUserActivityById(activityId));
     }
 }

@@ -49,4 +49,10 @@ public class ActivityService {
         List<Activity> activities = activityRepository.findByUserId(userId);
         return activities.stream().map(this::mapToResponse).collect(Collectors.toList());
     }
+
+    public ActivityResponse getUserActivityById(String activityId) {
+        return activityRepository.findById(activityId)
+                .map(this::mapToResponse)
+                .orElseThrow(() -> new RuntimeException("Activity not found with id : " + activityId));
+    }
 }
