@@ -148,3 +148,48 @@ so, we need to add this dependency in activity-service pom.xml :
 </dependency>
 ```
 
+## Similar to Activity Service we need to setup AI Service
+
+![AI Microservice Initilizer](markdown-images/image-5.png)
+
+`microservices/aiservice/src/main/resources/application.yaml`
+```yml
+spring:
+  application:
+    name: ai-service
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/fitnessrecommendation
+      database: fitnessrecommendation
+
+server:
+  port: 8083
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+```
+
+## Event Driven Architecture for (Recommendation - Generation)
+
+so, to do that we can make use of Rabbit MQ, in spring boot project we can use `Spring AMQP`.
+
+## Setting up Rabbit MQ Locally
+
+[Docs for Installation](https://www.rabbitmq.com/docs/download)
+
+Using Docker 
+
+```sh
+docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:4-management
+```
+
+Now, we can access the service on web console on [Rabbit MQ Web-Console](http://www.localhost:15672/)
+
+username : guest
+password : guest
+
+
+
+
