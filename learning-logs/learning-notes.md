@@ -232,6 +232,77 @@ rabbitmq:
     key: activity.tracking
 ```
 
+## AI Integration
+
+Endpoint in Activity Service: `http://localhost:8082/api/activities`
+Request Body : 
+
+```json
+{
+    "userId": "495b0334-4c50-42e1-b36f-476695ceff0a",
+    "type": "RUNNING",
+    "duration": 30,
+    "caloriesBurned": 300,
+    "startTime": "2025-10-31T10:00:00",
+    "additionalMetrics": {
+        "distance": 5.2,
+        "averageSpeed": 10.4,
+        "maxHeartRate": 165
+    }
+}
+```
 
 
+Gemini response for this particular activity:
+```json
+{
+  "analysis": {
+    "overall": "This was a very solid 30-minute running session, indicating good cardiovascular fitness and a strong performance. Covering 5.2 km at an average speed of 10.4 km/h is an excellent effort for this duration, pushing into a vigorous intensity zone, which is well-supported by your peak heart rate. You're maintaining a good level of fitness.",
+    "pace": "An average pace of approximately 5 minutes 46 seconds per kilometer (10.4 km/h) for a 30-minute run is impressive. This pace suggests a challenging but sustainable effort, well above a conversational pace, contributing significantly to cardiovascular conditioning and demonstrating good running efficiency.",
+    "heartRate": "A maximum heart rate of 165 bpm during this run indicates a high level of cardiovascular effort. Depending on your age (which is not provided), this is likely within or approaching your vigorous exercise zone (e.g., 80-90% of maximum heart rate), which is highly effective for improving aerobic capacity and heart health. It shows great engagement of your cardiovascular system.",
+    "CaloriesBurned": "Burning 300 calories in 30 minutes aligns perfectly with the intensity and duration of your run (approximately 10 calories per minute). This is an efficient and effective calorie expenditure for a 30-minute session at this pace and intensity, contributing positively to energy balance and fitness goals."
+  },
+  "improvements": [
+    {
+      "area": "Endurance & Stamina",
+      "recommendation": "To further build endurance, consider gradually increasing your run duration by 5-10 minutes once or twice a week, maintaining a slightly more conversational pace. This will help improve your body's ability to sustain effort over longer periods without excessive fatigue, enhancing your aerobic base."
+    },
+    {
+      "area": "Speed & Pace",
+      "recommendation": "Introduce one speed-focused workout per week. This could involve interval training (e.g., alternating bursts of faster running for 1-2 minutes with 2-3 minutes of slower jogging for recovery) or tempo runs (sustaining a faster-than-usual but still comfortably hard pace for 15-20 minutes within your run). This will improve your top-end speed and anaerobic threshold."
+    },
+    {
+      "area": "Cardiovascular Efficiency",
+      "recommendation": "While your max HR indicates good effort, explore varying your intensity. Include some runs where you consciously aim for a lower, steady heart rate zone (e.g., 70-80% MHR) for longer durations, and others where you push into higher zones, as suggested with speed work. This diverse training will enhance overall heart health and metabolic flexibility."
+    },
+    {
+      "area": "Running Form & Efficiency",
+      "recommendation": "Focus on maintaining good running form: keep your gaze forward, shoulders relaxed and down, arms at a 90-degree angle, and feet landing softly beneath your hips (midfoot strike). Incorporating dynamic warm-ups and post-run stretching can also improve flexibility, mobility, and reduce injury risk, leading to more efficient running."
+    }
+  ],
+  "suggestions": [
+    {
+      "workout": "Interval Training (Fartlek)",
+      "description": "Warm-up with a 5-10 minute easy jog. Then, for the next 20 minutes, alternate between 1-2 minutes of fast running (pushing your pace significantly, aiming for 85-90% effort) and 2-3 minutes of easy jogging or walking to recover. Repeat this cycle 5-6 times. Finish with a 5-minute cool-down jog and thorough stretching. This workout will boost your speed, anaerobic threshold, and cardiovascular fitness."
+    },
+    {
+      "workout": "Progressive Long Run",
+      "description": "Warm-up with 5 minutes of walking/easy jogging. Then, embark on a 40-45 minute run where you start at a comfortable, conversational pace for the first 15-20 minutes. Gradually increase your speed every 10 minutes until the final 5-10 minutes are at a moderately challenging pace (similar to your analyzed run or slightly faster). Cool down with 5 minutes of walking and stretching. This builds endurance and teaches your body to handle increasing fatigue."
+    },
+    {
+      "workout": "Strength & Core for Runners",
+      "description": "On a non-running day, perform 2-3 sets of 10-15 repetitions for exercises like squats, lunges, glute bridges, planks (holding for 30-60 seconds), and calf raises. Focus on proper form and controlled movements. Strengthening your core, glutes, and leg muscles is crucial for injury prevention, improving running economy, and boosting power."
+    }
+  ],
+  "safety": [
+    "Always perform a dynamic warm-up (e.g., leg swings, high knees, butt kicks) for 5-10 minutes before your run and a static cool-down stretch (holding stretches for 20-30 seconds) for 5-10 minutes afterward to prevent injury and improve flexibility.",
+    "Listen to your body. If you experience sharp or persistent pain, discomfort beyond typical muscle fatigue, or excessive dizziness, reduce your intensity or stop the activity. Pushing through pain can lead to more serious injuries.",
+    "Stay adequately hydrated by drinking water before, during (if necessary for longer runs or hot weather), and after your run. Proper hydration is crucial for performance and recovery.",
+    "Wear appropriate running shoes that offer good support and cushioning, and replace them every 500-800 km or 6-9 months, as worn-out shoes can contribute to injuries.",
+    "Run in well-lit, safe environments, and if running outdoors, be aware of your surroundings, traffic, and pedestrians. Consider wearing reflective gear and carrying identification if running in low light or remote areas.",
+    "Ensure a gradual progression in your training. Avoid drastically increasing your distance, speed, or intensity by more than 10% per week to give your body adequate time to adapt and minimize the risk of overuse injuries."
+  ]
+}
+```
 
+Now, we need to parse the response generated by Gemini and store it into the Database. 
