@@ -190,6 +190,48 @@ Now, we can access the service on web console on [Rabbit MQ Web-Console](http://
 username : guest
 password : guest
 
+## Let's Integrate Spring-AMQP
+
+Activity-Service: dependency in pom.xml
+```xml
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-amqp</artifactId>
+</dependency>
+```
+
+Activity Service : application.yml
+```yml
+server:
+  port: 8082
+
+spring:
+  application:
+    name: activity-service
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/fitnessactivity
+      database: fitnessactivity
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+rabbitmq:
+  exchange:
+    name: fitness.exchange
+  queue:
+    name: activity.queue
+  routing:
+    key: activity.tracking
+```
+
 
 
 
