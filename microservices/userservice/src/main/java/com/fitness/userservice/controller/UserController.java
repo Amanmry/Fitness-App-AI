@@ -19,11 +19,7 @@ public class UserController {
 
     @GetMapping("/{userId}")
     public ResponseEntity<UserResponse> getUserProfile(@PathVariable String userId) {
-        try {
-            return ResponseEntity.ok(userService.getUserProfile(userId));
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+        return ResponseEntity.ok(userService.getUserProfile(userId));
     }
 
     @PostMapping("/register")
