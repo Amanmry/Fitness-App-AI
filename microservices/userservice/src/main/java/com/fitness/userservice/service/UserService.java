@@ -2,6 +2,7 @@ package com.fitness.userservice.service;
 
 import com.fitness.userservice.dto.RegisterRequest;
 import com.fitness.userservice.dto.UserResponse;
+import com.fitness.userservice.exceptions.UserNotFoundException;
 import com.fitness.userservice.model.User;
 import com.fitness.userservice.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -30,7 +31,7 @@ public class UserService {
     }
 
     public UserResponse getUserProfile(String userId) throws RuntimeException {
-        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User Not Found"));
+        User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("No User Exist by Id : " + userId));
         return userMapper(user);
     }
 
