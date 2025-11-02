@@ -19,7 +19,7 @@ public class UserService {
     public UserResponse register(RegisterRequest request) throws RuntimeException {
 
         if(userRepository.existsByEmail(request.getEmail())) {
-            throw new EmailAlreadyExistsException("Email already exist");
+            throw new EmailAlreadyExistsException("Email already exists: " + request.getEmail());
         }
 
         User user = new User();
