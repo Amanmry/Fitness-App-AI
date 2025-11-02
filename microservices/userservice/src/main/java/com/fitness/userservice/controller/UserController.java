@@ -24,11 +24,7 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<UserResponse> register(@Valid @RequestBody RegisterRequest request) {
-        try {
-            return ResponseEntity.ok(userService.register(request));
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
-        }
+        return ResponseEntity.ok(userService.register(request));
     }
 
     @GetMapping("/{userId}/validate")
